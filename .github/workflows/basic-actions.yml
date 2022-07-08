@@ -1,0 +1,20 @@
+name: basic-actions
+on: [push]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "shrouded-thicket-82981"
+          heroku_email: "billy.grados@gmail.com"
+
